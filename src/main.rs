@@ -1,3 +1,5 @@
+#![cfg_attr(windows, feature(windows_by_handle))]
+
 use std::env::current_dir;
 use std::fs::{metadata, OpenOptions};
 use std::io::ErrorKind;
