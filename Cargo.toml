@@ -5,10 +5,27 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = ["imdb"]
+imdb = ["dep:imdb-index"]
+debug = [ "dep:log", "dep:simple_logger" ]
+
 [dependencies]
-# webm-iterable: for writable tags
-matroska = "0.15"
+webm-iterable = "0.3"
 # mp4: for reading mp4 tags (maybe unnecessary if converting)
 regex = "1.5"
 lazy_static = "1.4"
 format_num = "0.1"
+imdb-index = { version = "0.1", optional = true }
+log = { version = "0.4", optional = true, features = [ "std" ] }
+simple_logger = { version = "2.1", optional = true }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+debug = 1
+strip = "symbols"
+
+[[bin]]
+name = "test"
+path = "src/test.rs"
